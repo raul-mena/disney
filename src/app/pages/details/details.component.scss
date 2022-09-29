@@ -1,0 +1,27 @@
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar {
+    margin: 10px;
+}
+
+.avatar img {
+    width: 100%;
+}
+
+.standar-size {
+    width: 400px;
+    height: 400px;
+}
+
+.link {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    color: navy;
+    text-decoration: underline;
+    cursor: pointer;
+}

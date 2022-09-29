@@ -1,0 +1,6 @@
+<div class="page characters-container" (scroll)="onScroll($event)">
+    <app-card *ngFor="let item of list" [character]="item"></app-card>
+    <div class="loading-container" *ngIf="disneyService.loading">
+        <mat-spinner></mat-spinner>
+    </div>
+</div>

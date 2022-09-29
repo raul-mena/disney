@@ -1,0 +1,25 @@
+<div class="page ">
+    <div class="link">
+        <a routerLink="/home">Go Home</a>
+    </div>
+    <div class="flex">
+        <div class="avatar standar-size">
+            <img [src]="selectedCharacter?.imageUrl" />
+        </div>
+        <div class="details standar-size">
+            <h2>{{selectedCharacter?.name}}</h2>
+            <div class="section">
+                <b *ngIf="selectedCharacter?.films?.length">Films</b>
+                <ul>
+                    <li *ngFor="let film of selectedCharacter?.films">{{film}}</li>
+                </ul>
+            </div>
+            <div class="section">
+                <b *ngIf="selectedCharacter?.tvShows?.length">TV Shows</b>
+                <ul>
+                    <li *ngFor="let show of selectedCharacter?.tvShows">{{show}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<mat-card class="my-card" (click)="goToDetails()">
+    <mat-card-header>   
+    </mat-card-header>
+        <img mat-card-image class="character-img" [src]="character?.imageUrl" [alt]="character?.name">
+    <mat-card-content>
+        <p>
+            {{character?.name}}
+        </p>
+    </mat-card-content>
+</mat-card>
