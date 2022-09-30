@@ -1,7 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
-
+import { provideMockStore } from '@ngrx/store/testing';
 import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {
@@ -13,7 +12,8 @@ describe('HomeComponent', () => {
       declarations: [ HomeComponent ],
       imports:[
         HttpClientModule
-      ]
+      ],
+      providers: [provideMockStore({})]
     })
     .compileComponents();
   });
@@ -27,14 +27,4 @@ describe('HomeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should call disney service on ngOnInit function', () => {
-    expect(component).toBeTruthy();
-    spyOn(component.disneyService, 'getCharactersObservable').and.returnValue(of([]));
-    spyOn(component.disneyService, 'refreshData');
-    component.ngOnInit();
-    expect(component.disneyService.getCharactersObservable).toHaveBeenCalled();
-    expect(component.disneyService.refreshData).toHaveBeenCalled();
-  });
-
 });

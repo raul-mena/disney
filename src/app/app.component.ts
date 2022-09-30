@@ -9,7 +9,9 @@ import { DisneyService } from './services/disney.service';
 export class AppComponent implements OnInit {
   title = 'disney';
 
-  constructor(public disneyService: DisneyService) { }
+  constructor(
+    public disneyService: DisneyService,
+    ) { }
 
   /**
    * init application pulling inital data

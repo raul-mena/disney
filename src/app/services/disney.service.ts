@@ -2,20 +2,24 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Character, CharacteresResponse } from '../interfaces/characteres-response';
 import { Observable, of, Subject } from 'rxjs';
+import { AddCharacterea } from '../actions/Characters.action';
+import { Store } from '@ngrx/store';
+import { AppState } from '../app.state';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DisneyService {
 
-  private generalListSubject = new Subject<Character[]>();
-  private generalList: Character[] = [];
   private nextUrl: string = '';
   loading: boolean = false;
 
   private baseUrl: string = 'https://api.disneyapi.dev/characters'
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private store: Store<AppState>
+  ) { }
 
   /**
    * 
@@ -24,10 +28,9 @@ export class DisneyService {
   fetchCharacteres(nextUrl?: string): void {
     this.loading = true;
     this.http.get<CharacteresResponse>(nextUrl || this.baseUrl)
-      .subscribe((response: CharacteresResponse) => {
-        this.generalList = [...this.generalList, ...response.data]
-        this.generalListSubject.next(this.generalList);
+      .subscribe(response => {
         this.nextUrl = response.nextPage;
+        this.store.dispatch(new AddCharacterea(response.data));
         this.loading = false;
       }, error => {
         console.error('error on fetchCharacteres', error)
@@ -43,14 +46,6 @@ export class DisneyService {
       this.fetchCharacteres(this.nextUrl);
     }
   }
-
-  /**
-   * 
-   * @returns observable to subscribe and get general character list updates
-   */
-  getCharactersObservable(): Observable<Character[]> {
-    return this.generalListSubject.asObservable();
-  }
   
   /**
    * 
@@ -58,18 +53,6 @@ export class DisneyService {
    * @returns a observable with Character info, check if we have it on the list, just return the item, if not request to api for that information
    */
   getCharacterById(id: number | null): Observable<Character> {
-    const character = this.generalList.find(item => item._id === id);
-    if (character){
-      console.log('character', character)
-      return of(character);
-    }
     return this.http.get<Character>(`${this.baseUrl}/${id}`);
-  }
-
-  /**
-   * trigger subscribe fucntions on the components
-   */
-   refreshData(): void {
-    this.generalListSubject.next(this.generalList);
   }
 }

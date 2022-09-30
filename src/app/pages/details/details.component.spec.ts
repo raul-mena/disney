@@ -2,7 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-
+import { provideMockStore } from '@ngrx/store/testing';
 import { DetailsComponent } from './details.component';
 
 describe('DetailsComponent', () => {
@@ -15,7 +15,8 @@ describe('DetailsComponent', () => {
       imports: [
         RouterTestingModule,
         HttpClientModule
-      ]
+      ],
+      providers: [provideMockStore({})]
     })
     .compileComponents();
   });

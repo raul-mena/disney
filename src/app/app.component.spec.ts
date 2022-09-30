@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { DisneyService } from './services/disney.service';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -15,7 +16,8 @@ describe('AppComponent', () => {
         AppComponent
       ],
       providers: [
-        DisneyService
+        DisneyService,
+        provideMockStore({})
       ]
     }).compileComponents();
   });
